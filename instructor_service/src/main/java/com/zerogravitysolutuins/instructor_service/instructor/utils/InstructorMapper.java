@@ -5,7 +5,7 @@ import com.zerogravitysolutuins.instructor_service.instructor.InstructorDto;
 
 public class InstructorMapper {
 
-    private static Instructor mapDtoToEntity(InstructorDto instructorDto, Instructor instructor){
+    public static Instructor mapDtoToEntity(InstructorDto instructorDto, Instructor instructor){
 
         if(instructorDto.getId() != null){
             instructor.setId(instructorDto.getId());

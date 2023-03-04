@@ -1,7 +1,14 @@
 package com.zerogravitysolutuins.instructor_service.instructor;
 
+import com.zerogravitysolutuins.instructor_service.instructor.utils.InstructorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InstructorServiceImpl implements InstructorService{
@@ -11,5 +18,38 @@ public class InstructorServiceImpl implements InstructorService{
     @Autowired
     public InstructorServiceImpl(InstructorRepository instructorRepository) {
         this.instructorRepository = instructorRepository;
+    }
+
+    @Override
+    public InstructorDto save(InstructorDto instructorDto) {
+        Instructor instructor = new Instructor();
+        InstructorMapper.mapDtoToEntity(instructorDto, instructor);
+        instructor.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        instructor.setCreatedBy(1L);
+        return InstructorMapper.mapEntityToDto(instructorRepository.save(instructor));
+    }
+
+    @Override
+    public List<InstructorDto> findAll() {
+        List<Instructor> instructors = instructorRepository.findAll();
+        return instructors.stream().map(instructor -> InstructorMapper.mapEntityToDto(instructor)).toList();
+    }
+
+    @Override
+    public Optional<InstructorDto> findById(Long id) {
+        Optional<Instructor> instructor = instructorRepository.findById(id);
+        if(instructor.isPresent()){
+            return Optional.of(InstructorMapper.mapEntityToDto(instructor.get()));
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Instructor with id: " + instructor.get().getId() + " not found.");
+    }
+
+    @Override
+    public InstructorDto update(InstructorDto instructorDto) {
+        Instructor instructor = new Instructor();
+        InstructorMapper.mapDtoToEntity(instructorDto, instructor);
+        instructor.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        instructor.setUpdatedBy(1L);
+        return InstructorMapper.mapEntityToDto(instructorRepository.save(instructor));
     }
 }
