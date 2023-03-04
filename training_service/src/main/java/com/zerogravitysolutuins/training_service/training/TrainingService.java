@@ -8,4 +8,5 @@ public interface TrainingService {
     List<Training> findAll();
     Optional<Training> findById(Long id);
     Training update(Training training);
+    Training disable(Long id);
 }

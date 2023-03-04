@@ -26,12 +26,12 @@ public class TrainingServiceImpl implements TrainingService {
 
     @Override
     public List<Training> findAll() {
-        return trainingRepository.findAll();
+        return trainingRepository.findAllTraining();
     }
 
     @Override
     public Optional<Training> findById(Long id) {
-        return trainingRepository.findById(id);
+        return trainingRepository.findTrainingById(id);
     }
 
     @Override
@@ -39,5 +39,14 @@ public class TrainingServiceImpl implements TrainingService {
         training.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         training.setUpdatedBy(1L);
         return trainingRepository.save(training);
+    }
+
+    @Override
+    public Training disable(Long id) {
+        Optional<Training> training = trainingRepository.findTrainingById(id);
+        training.get().setDeletedAt(new Timestamp(System.currentTimeMillis()));
+        training.get().setDeletedBy(1L);
+        trainingRepository.save(training.get());
+        return trainingRepository.getDisableTraining();
     }
 }

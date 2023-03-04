@@ -35,4 +35,9 @@ public class TrainingController {
     public Training updateTraining(@RequestBody Training training){
         return trainingService.update(training);
     }
+
+    @PutMapping(path = "/trainings/disable/{id}")
+    public Training disableTraining(@PathVariable Long id){
+        return trainingService.disable(id);
+    }
 }
