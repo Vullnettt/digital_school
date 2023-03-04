@@ -9,4 +9,5 @@ public interface TrainingService {
     Optional<Training> findById(Long id);
     Training update(Training training);
     Training disable(Long id);
+    TrainingDto partialUpdate(Long id, TrainingDto trainingDto);
 }

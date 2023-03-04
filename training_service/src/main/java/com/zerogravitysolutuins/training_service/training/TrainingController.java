@@ -40,4 +40,9 @@ public class TrainingController {
     public Training disableTraining(@PathVariable Long id){
         return trainingService.disable(id);
     }
+
+    @PatchMapping(path = "/trainings/{id}")
+    public TrainingDto partialUpdate(@PathVariable Long id, @RequestBody TrainingDto trainingDto){
+        return trainingService.partialUpdate(id, trainingDto);
+    }
 }

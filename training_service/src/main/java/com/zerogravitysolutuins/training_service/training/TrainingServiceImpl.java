@@ -1,7 +1,10 @@
 package com.zerogravitysolutuins.training_service.training;
 
+import com.zerogravitysolutuins.training_service.training.utils.TrainingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -48,5 +51,18 @@ public class TrainingServiceImpl implements TrainingService {
         training.get().setDeletedBy(1L);
         trainingRepository.save(training.get());
         return trainingRepository.getDisableTraining();
+    }
+
+    @Override
+    public TrainingDto partialUpdate(Long id, TrainingDto trainingDto) {
+        Optional<Training> training = trainingRepository.findTrainingById(id);
+        if(training.isPresent()){
+            TrainingMapper.mapDtoToEntity(trainingDto, training.get());
+            training.get().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            training.get().setUpdatedBy(1L);
+            return TrainingMapper.mapEntityToDto(trainingRepository.save(training.get()));
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Training with id: " + training.get().getId() + " not found.");
+        }
     }
 }
