@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<modules>
 		<module>training_service</module>
+		<module>instructor_service</module>
 	</modules>
 	<name>digitalschool</name>
 	<packaging>pom</packaging>
