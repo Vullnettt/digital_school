@@ -31,13 +31,13 @@ public class InstructorServiceImpl implements InstructorService{
 
     @Override
     public List<InstructorDto> findAll() {
-        List<Instructor> instructors = instructorRepository.findAll();
+        List<Instructor> instructors = instructorRepository.findAllInstructor();
         return instructors.stream().map(instructor -> InstructorMapper.mapEntityToDto(instructor)).toList();
     }
 
     @Override
     public Optional<InstructorDto> findById(Long id) {
-        Optional<Instructor> instructor = instructorRepository.findById(id);
+        Optional<Instructor> instructor = instructorRepository.findInstructorById(id);
         if(instructor.isPresent()){
             return Optional.of(InstructorMapper.mapEntityToDto(instructor.get()));
         }
@@ -51,5 +51,31 @@ public class InstructorServiceImpl implements InstructorService{
         instructor.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         instructor.setUpdatedBy(1L);
         return InstructorMapper.mapEntityToDto(instructorRepository.save(instructor));
+    }
+
+    @Override
+    public InstructorDto disable(Long id) {
+        Optional<Instructor> instructor = instructorRepository.findById(id);
+        if(instructor.isPresent()) {
+            instructor.get().setDeletedAt(new Timestamp(System.currentTimeMillis()));
+            instructor.get().setDeletedBy(1L);
+            instructorRepository.save(instructor.get());
+            return InstructorMapper.mapEntityToDto(instructorRepository.getDisabledInstructor());
+        } else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Instructor with id: " + instructor.get().getId() + " not found.");
+        }
+    }
+
+    @Override
+    public InstructorDto partialUpdate(Long id, InstructorDto instructorDto) {
+        Optional<Instructor> instructor = instructorRepository.findById(id);
+        if(instructor.isPresent()) {
+            InstructorMapper.mapDtoToEntity(instructorDto, instructor.get());
+            instructor.get().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            instructor.get().setUpdatedBy(1L);
+            return InstructorMapper.mapEntityToDto(instructorRepository.save(instructor.get()));
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Instructor with id: " + instructor.get().getId() + " not found.");
+        }
     }
 }

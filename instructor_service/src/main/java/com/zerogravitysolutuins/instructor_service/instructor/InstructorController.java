@@ -35,4 +35,14 @@ public class InstructorController {
     public InstructorDto updateInstructor(@RequestBody InstructorDto instructorDto){
         return instructorService.update(instructorDto);
     }
+
+    @PutMapping(path = "/instructors/disable/{id}")
+    public InstructorDto disableInstructor(@PathVariable Long id){
+        return instructorService.disable(id);
+    }
+
+    @PatchMapping(path = "/instructors/{id}")
+    public InstructorDto partialUpdate(@PathVariable Long id, @RequestBody InstructorDto instructorDto){
+        return instructorService.partialUpdate(id, instructorDto);
+    }
 }

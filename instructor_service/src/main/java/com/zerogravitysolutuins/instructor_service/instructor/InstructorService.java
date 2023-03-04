@@ -9,5 +9,6 @@ public interface InstructorService {
     List<InstructorDto> findAll();
     Optional<InstructorDto> findById(Long id);
     InstructorDto update(InstructorDto instructorDto);
-
+    InstructorDto disable(Long id);
+    InstructorDto partialUpdate(Long id, InstructorDto instructorDto);
 }
