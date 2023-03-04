@@ -5,6 +5,7 @@ import com.zerogravitysolutuins.training_service.training.TrainingDto;
 
 public class TrainingMapper {
 
+
     public static Training mapDtoToEntity(TrainingDto trainingDto, Training training){
 
         if(trainingDto.getId() != null){

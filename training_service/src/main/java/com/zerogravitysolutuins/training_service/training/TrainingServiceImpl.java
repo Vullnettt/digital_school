@@ -21,36 +21,47 @@ public class TrainingServiceImpl implements TrainingService {
     }
 
     @Override
-    public Training save(Training training) {
+    public TrainingDto save(TrainingDto trainingDto) {
+        Training training = new Training();
+        TrainingMapper.mapDtoToEntity(trainingDto, training);
         training.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         training.setCreatedBy(1L);
-        return trainingRepository.save(training);
+        return TrainingMapper.mapEntityToDto(trainingRepository.save(training));
     }
 
     @Override
-    public List<Training> findAll() {
-        return trainingRepository.findAllTraining();
+    public List<TrainingDto> findAll() {
+        List<Training> trainings = trainingRepository.findAllTraining();
+        return trainings.stream().map(training -> TrainingMapper.mapEntityToDto(training)).toList();
     }
 
     @Override
-    public Optional<Training> findById(Long id) {
-        return trainingRepository.findTrainingById(id);
+    public Optional<TrainingDto> findById(Long id) {
+        Optional<Training> training = trainingRepository.findTrainingById(id);
+        if(training.isPresent()) {
+            return Optional.of(TrainingMapper.mapEntityToDto(training.get()));
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Training with id: " + training.get().getId() + " not found.");
+        }
     }
 
     @Override
-    public Training update(Training training) {
+    public TrainingDto update(TrainingDto trainingDto) {
+        Training training = new Training();
+        TrainingMapper.mapDtoToEntity(trainingDto, training);
         training.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         training.setUpdatedBy(1L);
-        return trainingRepository.save(training);
+        return TrainingMapper.mapEntityToDto(trainingRepository.save(training));
     }
 
     @Override
-    public Training disable(Long id) {
+    public TrainingDto disable(Long id) {
         Optional<Training> training = trainingRepository.findTrainingById(id);
         training.get().setDeletedAt(new Timestamp(System.currentTimeMillis()));
         training.get().setDeletedBy(1L);
         trainingRepository.save(training.get());
-        return trainingRepository.getDisableTraining();
+        return TrainingMapper.mapEntityToDto(trainingRepository.getDisableTraining());
     }
 
     @Override

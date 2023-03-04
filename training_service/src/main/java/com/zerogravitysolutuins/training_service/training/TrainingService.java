@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TrainingService {
-    Training save(Training training);
-    List<Training> findAll();
-    Optional<Training> findById(Long id);
-    Training update(Training training);
-    Training disable(Long id);
+    TrainingDto save(TrainingDto trainingDto);
+    List<TrainingDto> findAll();
+    Optional<TrainingDto> findById(Long id);
+    TrainingDto update(TrainingDto trainingDto);
+    TrainingDto disable(Long id);
     TrainingDto partialUpdate(Long id, TrainingDto trainingDto);
 }

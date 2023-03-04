@@ -17,27 +17,27 @@ public class TrainingController {
     }
 
     @PostMapping(path = "/trainings")
-    private Training addTraining(@RequestBody Training training){
-        return trainingService.save(training);
+    private TrainingDto addTraining(@RequestBody TrainingDto trainingDto){
+        return trainingService.save(trainingDto);
     }
 
     @GetMapping(path = "/trainings")
-    public List<Training> getAllTraining(){
+    public List<TrainingDto> getAllTraining(){
         return trainingService.findAll();
     }
 
     @GetMapping(path = "/trainings/{id}")
-    public Optional<Training> findTrainingById(@PathVariable Long id){
+    public Optional<TrainingDto> findTrainingById(@PathVariable Long id){
         return trainingService.findById(id);
     }
 
     @PutMapping(path = "/trainings/{id}")
-    public Training updateTraining(@RequestBody Training training){
-        return trainingService.update(training);
+    public TrainingDto updateTraining(@RequestBody TrainingDto trainingDto){
+        return trainingService.update(trainingDto);
     }
 
     @PutMapping(path = "/trainings/disable/{id}")
-    public Training disableTraining(@PathVariable Long id){
+    public TrainingDto disableTraining(@PathVariable Long id){
         return trainingService.disable(id);
     }
 
