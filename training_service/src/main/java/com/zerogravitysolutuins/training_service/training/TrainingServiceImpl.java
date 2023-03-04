@@ -1,9 +1,12 @@
 package com.zerogravitysolutuins.training_service.training;
 
+import com.zerogravitysolutuins.training_service.instructor.Instructor;
+import com.zerogravitysolutuins.training_service.instructor.InstructorRepository;
 import com.zerogravitysolutuins.training_service.training.utils.TrainingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
@@ -14,10 +17,15 @@ import java.util.Optional;
 public class TrainingServiceImpl implements TrainingService {
 
     private final TrainingRepository trainingRepository;
+    private final RestTemplate restTemplate;
+    private final InstructorRepository instructorRepository;
 
     @Autowired
-    public TrainingServiceImpl(TrainingRepository trainingRepository) {
+    public TrainingServiceImpl(TrainingRepository trainingRepository, RestTemplate restTemplate,
+                               InstructorRepository instructorRepository) {
         this.trainingRepository = trainingRepository;
+        this.restTemplate = restTemplate;
+        this.instructorRepository = instructorRepository;
     }
 
     @Override
@@ -73,6 +81,25 @@ public class TrainingServiceImpl implements TrainingService {
             training.get().setUpdatedBy(1L);
             return TrainingMapper.mapEntityToDto(trainingRepository.save(training.get()));
         }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Training with id: " + training.get().getId() + " not found.");
+        }
+    }
+
+    @Override
+    public TrainingDto addInstructorToTraining(Long trainingId, Long instructorId) {
+        Optional<Training> training = trainingRepository.findTrainingById(trainingId);
+
+        Instructor instructor = new Instructor();
+        instructor.setId(instructorId);
+
+        if(training.isPresent()){
+//            TrainingMapper.mapEntityToDto(training.get());
+            Instructor instructorTemplate = restTemplate.getForObject("http://localhost:8082/instructors/" + instructorId, Instructor.class);
+            training.get().getInstructors().add(instructorTemplate);
+            instructorRepository.save(instructorTemplate);
+            return TrainingMapper.mapEntityToDto(trainingRepository.save(training.get()));
+        }
+        else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Training with id: " + training.get().getId() + " not found.");
         }
     }

@@ -1,6 +1,11 @@
 package com.zerogravitysolutuins.instructor_service.instructor;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zerogravitysolutuins.instructor_service.commons.BaseDto;
+import com.zerogravitysolutuins.instructor_service.training.Training;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class InstructorDto extends BaseDto {
 
@@ -12,6 +17,9 @@ public class InstructorDto extends BaseDto {
     private String facebookProfile;
     private String linkedinProfile;
     private String profilePicture;
+
+    @JsonIgnoreProperties("instructors")
+    private Set<Training> trainings = new HashSet<>();
 
     public String getFirstName() {
         return firstName;
@@ -75,5 +83,13 @@ public class InstructorDto extends BaseDto {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public Set<Training> getTrainings() {
+        return trainings;
+    }
+
+    public void setTrainings(Set<Training> trainings) {
+        this.trainings = trainings;
     }
 }

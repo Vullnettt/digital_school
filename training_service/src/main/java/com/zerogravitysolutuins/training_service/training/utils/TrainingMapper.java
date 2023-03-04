@@ -19,6 +19,9 @@ public class TrainingMapper {
         if(trainingDto.getPrice() != null){
             training.setPrice(trainingDto.getPrice());
         }
+        if(trainingDto.getInstructors() != null){
+            training.setInstructors(trainingDto.getInstructors());
+        }
         if(trainingDto.getCreatedAt() != null){
             training.setCreatedAt(trainingDto.getCreatedAt());
         }
@@ -48,6 +51,8 @@ public class TrainingMapper {
         trainingDto.setTitle(training.getTitle());
         trainingDto.setDescription(training.getDescription());
         trainingDto.setPrice(training.getPrice());
+        trainingDto.setInstructors(training.getInstructors());
+
         trainingDto.setCreatedAt(training.getCreatedAt());
         trainingDto.setCreatedBy(training.getCreatedBy());
         trainingDto.setUpdatedAt(training.getUpdatedAt());

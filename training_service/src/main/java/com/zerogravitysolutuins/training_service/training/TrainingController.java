@@ -45,4 +45,9 @@ public class TrainingController {
     public TrainingDto partialUpdate(@PathVariable Long id, @RequestBody TrainingDto trainingDto){
         return trainingService.partialUpdate(id, trainingDto);
     }
+
+    @PutMapping(path = "/trainings/{trainingId}/instructors/{instructorId}")
+    public TrainingDto addInstructorToTraining(@PathVariable Long trainingId, @PathVariable Long instructorId){
+        return trainingService.addInstructorToTraining(trainingId, instructorId);
+    }
 }

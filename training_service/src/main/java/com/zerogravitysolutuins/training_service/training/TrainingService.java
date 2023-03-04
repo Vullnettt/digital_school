@@ -10,4 +10,5 @@ public interface TrainingService {
     TrainingDto update(TrainingDto trainingDto);
     TrainingDto disable(Long id);
     TrainingDto partialUpdate(Long id, TrainingDto trainingDto);
+    TrainingDto addInstructorToTraining(Long trainingId, Long instructorId);
 }

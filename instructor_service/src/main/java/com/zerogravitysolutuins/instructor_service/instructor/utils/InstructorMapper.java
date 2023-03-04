@@ -34,6 +34,9 @@ public class InstructorMapper {
         if(instructorDto.getProfilePicture() != null){
             instructor.setProfilePicture(instructorDto.getProfilePicture());
         }
+        if(instructorDto.getTrainings() != null){
+            instructor.setProfilePicture(instructorDto.getProfilePicture());
+        }
         if(instructorDto.getCreatedAt() != null){
             instructor.setCreatedAt(instructorDto.getCreatedAt());
         }
@@ -68,6 +71,7 @@ public class InstructorMapper {
         instructorDto.setFacebookProfile(instructor.getFacebookProfile());
         instructorDto.setLinkedinProfile(instructor.getLinkedinProfile());
         instructorDto.setProfilePicture(instructor.getProfilePicture());
+        instructorDto.setTrainings(instructor.getTrainings());
 
         instructorDto.setCreatedAt(instructor.getCreatedAt());
         instructorDto.setCreatedBy(instructor.getCreatedBy());
