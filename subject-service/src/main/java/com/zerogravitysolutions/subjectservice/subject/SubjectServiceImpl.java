@@ -44,4 +44,35 @@ public class SubjectServiceImpl implements SubjectService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject with id: " + subject.get().getId() + " not found.");
         }
     }
+
+    @Override
+    public SubjectDto update(SubjectDto subjectDto) {
+        Subject subject = new Subject();
+        SubjectMapper.mapDtoToEntity(subjectDto, subject);
+        subject.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        subject.setUpdatedBy(1L);
+        return SubjectMapper.mapEntityToDto(subjectRepository.save(subject));
+    }
+
+    @Override
+    public SubjectDto disable(Long id) {
+        Optional<Subject> subject = subjectRepository.findSubjectById(id);
+        subject.get().setDeletedAt(new Timestamp(System.currentTimeMillis()));
+        subject.get().setDeletedBy(1L);
+        subjectRepository.save(subject.get());
+        return SubjectMapper.mapEntityToDto(subjectRepository.findDisableSubject());
+    }
+
+    @Override
+    public SubjectDto partialUpdate(Long id, SubjectDto subjectDto) {
+        Optional<Subject> subject = subjectRepository.findSubjectById(id);
+        if(subject.isPresent()){
+            SubjectMapper.mapDtoToEntity(subjectDto, subject.get());
+            subject.get().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            subject.get().setUpdatedBy(1L);
+            return SubjectMapper.mapEntityToDto(subjectRepository.save(subject.get()));
+        }else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject with id: " + subject.get().getId() + " not found.");
+        }
+    }
 }

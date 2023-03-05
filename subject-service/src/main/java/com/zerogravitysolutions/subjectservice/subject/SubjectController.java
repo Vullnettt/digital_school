@@ -30,4 +30,19 @@ public class SubjectController {
     public Optional<SubjectDto> getSubjectById(@PathVariable Long id){
         return subjectService.findById(id);
     }
+
+    @PutMapping(path = "/subjects/{id}")
+    public SubjectDto updateSubject(@RequestBody SubjectDto subjectDto) {
+        return subjectService.update(subjectDto);
+    }
+
+    @PutMapping(path = "/subjects/disable/{id}")
+    public SubjectDto disableSubject(@PathVariable Long id) {
+        return subjectService.disable(id);
+    }
+
+    @PatchMapping(path = "/subjects/{id}")
+    public SubjectDto partialUpdate(@PathVariable Long id, @RequestBody SubjectDto subjectDto) {
+        return subjectService.partialUpdate(id, subjectDto);
+    }
 }

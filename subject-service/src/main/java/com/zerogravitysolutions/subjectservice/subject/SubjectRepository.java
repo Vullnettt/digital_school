@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
+    @Query("Select s From Subject As s  Where s.deletedAt <> null")
+    Subject findDisableSubject();
 
     @Query("Select s From Subject As s  Where s.deletedAt = null")
     List<Subject> findAllSubject();
