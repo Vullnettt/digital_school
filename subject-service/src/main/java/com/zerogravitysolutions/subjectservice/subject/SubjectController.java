@@ -1,7 +1,10 @@
 package com.zerogravitysolutions.subjectservice.subject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class SubjectController {
@@ -11,5 +14,20 @@ public class SubjectController {
     @Autowired
     public SubjectController(SubjectService subjectService) {
         this.subjectService = subjectService;
+    }
+
+    @PostMapping(path = "/subjects")
+    public SubjectDto addSubject(@RequestBody SubjectDto subjectDto){
+        return subjectService.save(subjectDto);
+    }
+
+    @GetMapping(path = "/subjects")
+    public List<SubjectDto> getAllSubjects(){
+        return subjectService.findAll();
+    }
+
+    @GetMapping(path = "/subjects/{id}")
+    public Optional<SubjectDto> getSubjectById(@PathVariable Long id){
+        return subjectService.findById(id);
     }
 }
