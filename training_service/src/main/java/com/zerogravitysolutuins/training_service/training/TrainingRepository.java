@@ -11,7 +11,7 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
     @Query("Select t From Training As t Where t.deletedAt <> null")
     Training getDisableTraining();
 
-    @Query("Select t From Training As t Where t.deletedAt = null")
+    @Query("Select t From Training As t  Where t.deletedAt = null")
     List<Training> findAllTraining();
 
     @Query("Select t From Training As t Where t.deletedAt = null And t.id = ?1")

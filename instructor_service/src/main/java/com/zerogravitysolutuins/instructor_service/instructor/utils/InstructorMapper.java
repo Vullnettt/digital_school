@@ -34,9 +34,7 @@ public class InstructorMapper {
         if(instructorDto.getProfilePicture() != null){
             instructor.setProfilePicture(instructorDto.getProfilePicture());
         }
-        if(instructorDto.getTrainings() != null){
-            instructor.setProfilePicture(instructorDto.getProfilePicture());
-        }
+
         if(instructorDto.getCreatedAt() != null){
             instructor.setCreatedAt(instructorDto.getCreatedAt());
         }

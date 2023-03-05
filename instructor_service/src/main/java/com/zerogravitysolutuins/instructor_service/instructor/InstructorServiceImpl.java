@@ -1,9 +1,12 @@
 package com.zerogravitysolutuins.instructor_service.instructor;
 
 import com.zerogravitysolutuins.instructor_service.instructor.utils.InstructorMapper;
+import com.zerogravitysolutuins.instructor_service.training.Training;
+import com.zerogravitysolutuins.instructor_service.training.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
@@ -14,10 +17,13 @@ import java.util.Optional;
 public class InstructorServiceImpl implements InstructorService{
 
     private final InstructorRepository instructorRepository;
+    private final TrainingRepository trainingRepository;
 
     @Autowired
-    public InstructorServiceImpl(InstructorRepository instructorRepository) {
+    public InstructorServiceImpl(InstructorRepository instructorRepository,
+                                 TrainingRepository trainingRepository) {
         this.instructorRepository = instructorRepository;
+        this.trainingRepository = trainingRepository;
     }
 
     @Override
@@ -68,7 +74,7 @@ public class InstructorServiceImpl implements InstructorService{
 
     @Override
     public InstructorDto partialUpdate(Long id, InstructorDto instructorDto) {
-        Optional<Instructor> instructor = instructorRepository.findById(id);
+        Optional<Instructor> instructor = instructorRepository.findInstructorById(id);
         if(instructor.isPresent()) {
             InstructorMapper.mapDtoToEntity(instructorDto, instructor.get());
             instructor.get().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
