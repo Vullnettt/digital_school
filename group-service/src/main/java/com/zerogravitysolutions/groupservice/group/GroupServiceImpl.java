@@ -1,13 +1,54 @@
 package com.zerogravitysolutions.groupservice.group;
 
+import com.zerogravitysolutions.groupservice.group.utils.GroupMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Optional;
 
 @Service
-public class GroupServiceImpl {
+public class GroupServiceImpl implements GroupService{
 
     private final GroupRepository groupRepository;
 
     public GroupServiceImpl(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
+    }
+
+    @Override
+    public GroupDto save(GroupDto groupDto) {
+        Group group = new Group();
+        GroupMapper.mapDtoToEntity(groupDto, group);
+        group.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        group.setCreatedBy(1L);
+        return GroupMapper.mapEntityToDto(groupRepository.save(group));
+    }
+
+    @Override
+    public List<GroupDto> findAll() {
+        List<Group> groups = groupRepository.findAllGroup();
+        return groups.stream().map(group -> GroupMapper.mapEntityToDto(group)).toList();
+    }
+
+    @Override
+    public Optional<GroupDto> findById(Long id) {
+        Optional<Group> group = groupRepository.findGroupById(id);
+        if(group.isPresent()) {
+            return Optional.of(GroupMapper.mapEntityToDto(group.get()));
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group with id: " + group.get().getId() + " not found.");
+        }
+    }
+
+    @Override
+    public GroupDto update(GroupDto groupDto) {
+        Group group = new Group();
+        GroupMapper.mapDtoToEntity(groupDto, group);
+        group.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        group.setUpdatedBy(1L);
+        return GroupMapper.mapEntityToDto(groupRepository.save(group));
     }
 }
