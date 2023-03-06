@@ -16,6 +16,7 @@
 		<module>instructor_service</module>
 		<module>subject-service</module>
 		<module>student-service</module>
+		<module>group-service</module>
 	</modules>
 	<name>digitalschool</name>
 	<packaging>pom</packaging>
