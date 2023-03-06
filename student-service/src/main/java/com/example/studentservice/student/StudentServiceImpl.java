@@ -45,4 +45,37 @@ public class StudentServiceImpl implements StudentService{
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student with id: " + student.get().getId() + " not found.");
         }
     }
+
+    @Override
+    public StudentDto update(StudentDto studentDto) {
+        Student student = new Student();
+        StudentMapper.mapDtoToEntity(studentDto, student);
+        student.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+        student.setUpdatedBy(1L);
+        return StudentMapper.mapEntityToDto(studentRepository.save(student));
+    }
+
+    @Override
+    public StudentDto disable(Long id) {
+        Optional<Student> student = studentRepository.findStudentById(id);
+        student.get().setDeletedAt(new Timestamp(System.currentTimeMillis()));
+        student.get().setDeletedBy(1L);
+        studentRepository.save(student.get());
+        return StudentMapper.mapEntityToDto(studentRepository.findDisableStudent());
+    }
+
+    @Override
+    public StudentDto partialUpdate(Long id, StudentDto studentDto) {
+        Optional<Student> student = studentRepository.findStudentById(id);
+
+        if(student.isPresent()) {
+            StudentMapper.mapDtoToEntity(studentDto, student.get());
+            student.get().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            student.get().setUpdatedBy(1L);
+            return StudentMapper.mapEntityToDto(studentRepository.save(student.get()));
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student with id: " + student.get().getId() + " not found.");
+        }
+    }
 }

@@ -30,4 +30,19 @@ public class StudentController {
     public Optional<StudentDto> getStudentById(@PathVariable Long id){
         return studentService.findById(id);
     }
+
+    @PutMapping(path = "/students/{id}")
+    public StudentDto updateStudent(@RequestBody StudentDto studentDto){
+        return studentService.update(studentDto);
+    }
+
+    @PutMapping(path = "/students/disable/{id}")
+    public StudentDto disableStudent(@PathVariable Long id){
+        return studentService.disable(id);
+    }
+
+    @PatchMapping(path = "/students/{id}")
+    public StudentDto partialUpdate(@PathVariable Long id, @RequestBody StudentDto studentDto){
+        return studentService.partialUpdate(id, studentDto);
+    }
 }
