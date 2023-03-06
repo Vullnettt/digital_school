@@ -15,6 +15,7 @@
 		<module>training_service</module>
 		<module>instructor_service</module>
 		<module>subject-service</module>
+		<module>student-service</module>
 	</modules>
 	<name>digitalschool</name>
 	<packaging>pom</packaging>
