@@ -35,4 +35,15 @@ public class GroupController {
     public GroupDto updateGroup(@RequestBody GroupDto groupDto){
         return groupService.update(groupDto);
     }
+
+    @PutMapping(path = "/groups/disable/{id}")
+    public GroupDto disableGroup(@PathVariable Long id){
+        return groupService.disable(id);
+    }
+
+    @PatchMapping(path = "/groups/{id}")
+    public GroupDto partialUpdate(@PathVariable Long id, @RequestBody GroupDto groupDto){
+        return groupService.partialUpdate(id, groupDto);
+    }
+
 }

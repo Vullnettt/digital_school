@@ -51,4 +51,26 @@ public class GroupServiceImpl implements GroupService{
         group.setUpdatedBy(1L);
         return GroupMapper.mapEntityToDto(groupRepository.save(group));
     }
+
+    @Override
+    public GroupDto disable(Long id) {
+        Optional<Group> group = groupRepository.findGroupById(id);
+        group.get().setDeletedAt(new Timestamp(System.currentTimeMillis()));
+        group.get().setDeletedBy(1L);
+        groupRepository.save(group.get());
+        return GroupMapper.mapEntityToDto(groupRepository.findDisableGroup());
+    }
+
+    @Override
+    public GroupDto partialUpdate(Long id, GroupDto groupDto) {
+        Optional<Group> group = groupRepository.findGroupById(id);
+        if(group.isPresent()){
+            GroupMapper.mapDtoToEntity(groupDto, group.get());
+            group.get().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+            group.get().setUpdatedBy(1L);
+            return GroupMapper.mapEntityToDto(groupRepository.save(group.get()));
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group with id: " + group.get().getId() + " not found.");
+        }
+    }
 }

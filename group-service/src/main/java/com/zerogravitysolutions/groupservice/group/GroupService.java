@@ -8,4 +8,6 @@ public interface GroupService {
     List<GroupDto> findAll();
     Optional<GroupDto> findById(Long id);
     GroupDto update(GroupDto groupDto);
+    GroupDto disable(Long id);
+    GroupDto partialUpdate(Long id, GroupDto groupDto);
 }
