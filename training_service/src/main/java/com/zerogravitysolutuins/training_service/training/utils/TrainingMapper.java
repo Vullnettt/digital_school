@@ -51,6 +51,7 @@ public class TrainingMapper {
         trainingDto.setPrice(training.getPrice());
         trainingDto.setInstructors(training.getInstructors());
         trainingDto.setSubjects(training.getSubjects());
+        trainingDto.setGroups(training.getGroups());
 
         trainingDto.setCreatedAt(training.getCreatedAt());
         trainingDto.setCreatedBy(training.getCreatedBy());

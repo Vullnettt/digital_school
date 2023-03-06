@@ -1,6 +1,7 @@
 package com.zerogravitysolutions.groupservice.group;
 
 import com.zerogravitysolutions.groupservice.group.utils.GroupMapper;
+import com.zerogravitysolutions.groupservice.training.Training;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,9 @@ public class GroupServiceImpl implements GroupService{
     @Override
     public GroupDto save(GroupDto groupDto) {
         Group group = new Group();
+        Training training = restTemplate.getForObject("http://localhost:8081/trainings/" + groupDto.getTrainingId(), Training.class);
         GroupMapper.mapDtoToEntity(groupDto, group);
+        group.setTraining(training);
         group.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         group.setCreatedBy(1L);
         return GroupMapper.mapEntityToDto(groupRepository.save(group));

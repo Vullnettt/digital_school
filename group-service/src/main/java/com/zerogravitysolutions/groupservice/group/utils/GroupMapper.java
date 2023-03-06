@@ -53,6 +53,7 @@ public class GroupMapper {
         groupDto.setDescription(group.getDescription());
         groupDto.setStartDate(group.getStartDate());
         groupDto.setEndDate(group.getEndDate());
+        groupDto.setTrainingId(group.getTraining().getId());
 
         groupDto.setCreatedAt(group.getCreatedAt());
         groupDto.setCreatedBy(group.getCreatedBy());

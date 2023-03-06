@@ -1,16 +1,28 @@
-package com.zerogravitysolutions.groupservice.group;
+package com.zerogravitysolutuins.training_service.group;
 
-import com.zerogravitysolutions.groupservice.commons.BaseDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.zerogravitysolutuins.training_service.commons.BaseEntity;
+import com.zerogravitysolutuins.training_service.training.Training;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.sql.Timestamp;
 
-public class GroupDto extends BaseDto{
+@Entity
+@Table(name = "groups")
+public class Group extends BaseEntity {
 
     private String title;
     private String description;
     private Timestamp startDate;
     private Timestamp endDate;
-    private Long trainingId;
+
+    @ManyToOne
+    @JoinColumn(name = "training_id")
+    @JsonIgnore
+    private Training training;
 
     public String getTitle() {
         return title;
@@ -44,11 +56,11 @@ public class GroupDto extends BaseDto{
         this.endDate = endDate;
     }
 
-    public Long getTrainingId() {
-        return trainingId;
+    public Training getTraining() {
+        return training;
     }
 
-    public void setTrainingId(Long trainingId) {
-        this.trainingId = trainingId;
+    public void setTraining(Training training) {
+        this.training = training;
     }
 }
