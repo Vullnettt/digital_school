@@ -3,6 +3,7 @@ package com.zerogravitysolutuins.training_service.training;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zerogravitysolutuins.training_service.commons.BaseEntity;
 import com.zerogravitysolutuins.training_service.instructor.Instructor;
+import com.zerogravitysolutuins.training_service.subject.Subject;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -25,6 +26,8 @@ public class Training extends BaseEntity {
     @JsonIgnoreProperties("trainings")
     private Set<Instructor> instructors = new HashSet<>();
 
+    @OneToMany(mappedBy = "training")
+    private Set<Subject> subjects = new HashSet<>();
     public String getTitle() {
         return title;
     }
@@ -55,5 +58,13 @@ public class Training extends BaseEntity {
 
     public void setInstructors(Set<Instructor> instructors) {
         this.instructors = instructors;
+    }
+
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
     }
 }

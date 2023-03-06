@@ -17,6 +17,7 @@ public class SubjectMapper {
         if(subjectDto.getDescription() != null){
             subject.setDescription(subjectDto.getDescription());
         }
+
         if(subjectDto.getCreatedAt() != null){
             subject.setCreatedAt(subjectDto.getCreatedAt());
         }
@@ -45,6 +46,7 @@ public class SubjectMapper {
         subjectDto.setId(subject.getId());
         subjectDto.setTitle(subject.getTitle());
         subjectDto.setDescription(subject.getDescription());
+        subjectDto.setTrainingId(subject.getTraining().getId());
 
         subjectDto.setCreatedAt(subject.getCreatedAt());
         subjectDto.setCreatedBy(subject.getCreatedBy());

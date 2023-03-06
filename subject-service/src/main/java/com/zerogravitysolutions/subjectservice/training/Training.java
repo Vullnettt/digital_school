@@ -1,24 +1,25 @@
-package com.zerogravitysolutuins.training_service.training;
+package com.zerogravitysolutions.subjectservice.training;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutuins.training_service.commons.BaseDto;
-import com.zerogravitysolutuins.training_service.instructor.Instructor;
-import com.zerogravitysolutuins.training_service.subject.Subject;
-import com.zerogravitysolutuins.training_service.subject.SubjectRepository;
+import com.zerogravitysolutions.subjectservice.commons.BaseEntity;
+import com.zerogravitysolutions.subjectservice.subject.Subject;
+import jakarta.persistence.*;
+
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class TrainingDto extends BaseDto {
+@Entity
+@Table(name = "trainings")
+public class Training extends BaseEntity {
 
     private String title;
     private String description;
     private Double price;
 
-    @JsonIgnoreProperties("trainings")
-    private Set<Instructor> instructors = new HashSet<>();
-
+    @OneToMany(mappedBy = "training")
     private Set<Subject> subjects = new HashSet<>();
+
+
     public String getTitle() {
         return title;
     }
@@ -41,14 +42,6 @@ public class TrainingDto extends BaseDto {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Set<Instructor> getInstructors() {
-        return instructors;
-    }
-
-    public void setInstructors(Set<Instructor> instructors) {
-        this.instructors = instructors;
     }
 
     public Set<Subject> getSubjects() {

@@ -1,9 +1,12 @@
 package com.zerogravitysolutions.subjectservice.subject;
 
 import com.zerogravitysolutions.subjectservice.subject.utils.SubjectMapper;
+import com.zerogravitysolutions.subjectservice.training.Training;
+import com.zerogravitysolutions.subjectservice.training.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
@@ -14,21 +17,30 @@ import java.util.Optional;
 public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectRepository subjectRepository;
+    private final TrainingRepository trainingRepository;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public SubjectServiceImpl(SubjectRepository subjectRepository) {
+    public SubjectServiceImpl(SubjectRepository subjectRepository,
+                              TrainingRepository trainingRepository, RestTemplate restTemplate) {
         this.subjectRepository = subjectRepository;
+        this.trainingRepository = trainingRepository;
+        this.restTemplate = restTemplate;
     }
 
     @Override
     public SubjectDto save(SubjectDto subjectDto) {
-        Subject subject = new Subject();
+         Subject subject = new Subject();
+         Training training = restTemplate.getForObject("http://localhost:8081/trainings/" + subjectDto.getTrainingId()  , Training.class);
+
         SubjectMapper.mapDtoToEntity(subjectDto, subject);
+        subject.setTraining(training);
         subject.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         subject.setCreatedBy(1L);
-        return SubjectMapper.mapEntityToDto(subjectRepository.save(subject));
-    }
 
+        trainingRepository.save(training);
+    return SubjectMapper.mapEntityToDto(subjectRepository.save(subject));
+}
     @Override
     public List<SubjectDto> findAll() {
         List<Subject> subjects = subjectRepository.findAllSubject();

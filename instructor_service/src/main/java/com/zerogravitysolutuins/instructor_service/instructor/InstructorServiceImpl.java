@@ -17,13 +17,10 @@ import java.util.Optional;
 public class InstructorServiceImpl implements InstructorService{
 
     private final InstructorRepository instructorRepository;
-    private final TrainingRepository trainingRepository;
 
     @Autowired
-    public InstructorServiceImpl(InstructorRepository instructorRepository,
-                                 TrainingRepository trainingRepository) {
+    public InstructorServiceImpl(InstructorRepository instructorRepository) {
         this.instructorRepository = instructorRepository;
-        this.trainingRepository = trainingRepository;
     }
 
     @Override
