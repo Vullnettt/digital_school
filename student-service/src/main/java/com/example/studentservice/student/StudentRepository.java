@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
     @Query("Select s From Student As s  Where s.deletedAt = null")
-    List<Student> findAllSubject();
+    List<Student> findAllStudent();
 
     @Query("Select s From Student As s Where s.deletedAt = null And s.id = ?1")
-    Optional<Student> findSubjectById(Long id);
+    Optional<Student> findStudentById(Long id);
 }

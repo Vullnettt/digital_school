@@ -93,7 +93,6 @@ public class TrainingServiceImpl implements TrainingService {
         instructor.setId(instructorId);
 
         if(training.isPresent()){
-//            TrainingMapper.mapEntityToDto(training.get());
             Instructor instructorTemplate = restTemplate.getForObject("http://localhost:8082/instructors/" + instructorId, Instructor.class);
             training.get().getInstructors().add(instructorTemplate);
             instructorRepository.save(instructorTemplate);
