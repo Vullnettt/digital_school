@@ -10,4 +10,5 @@ public interface GroupService {
     GroupDto update(GroupDto groupDto);
     GroupDto disable(Long id);
     GroupDto partialUpdate(Long id, GroupDto groupDto);
+    GroupDto addInstructorInGroup(Long groupId, Long instructorId);
 }

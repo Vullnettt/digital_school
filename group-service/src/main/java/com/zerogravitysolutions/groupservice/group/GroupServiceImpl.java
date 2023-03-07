@@ -1,6 +1,7 @@
 package com.zerogravitysolutions.groupservice.group;
 
 import com.zerogravitysolutions.groupservice.group.utils.GroupMapper;
+import com.zerogravitysolutions.groupservice.instructor.Instructor;
 import com.zerogravitysolutions.groupservice.training.Training;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -76,6 +77,18 @@ public class GroupServiceImpl implements GroupService{
             GroupMapper.mapDtoToEntity(groupDto, group.get());
             group.get().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
             group.get().setUpdatedBy(1L);
+            return GroupMapper.mapEntityToDto(groupRepository.save(group.get()));
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group with id: " + group.get().getId() + " not found.");
+        }
+    }
+
+    @Override
+    public GroupDto addInstructorInGroup(Long groupId, Long instructorId) {
+        Optional<Group> group = groupRepository.findGroupById(groupId);
+        if(group.isPresent()) {
+            Instructor instructor = restTemplate.getForObject("http://localhost:8082/instructors/" + instructorId, Instructor.class);
+            group.get().getInstructors().add(instructor);
             return GroupMapper.mapEntityToDto(groupRepository.save(group.get()));
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Group with id: " + group.get().getId() + " not found.");

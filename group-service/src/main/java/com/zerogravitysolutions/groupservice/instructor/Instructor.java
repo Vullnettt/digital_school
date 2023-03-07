@@ -1,12 +1,11 @@
-package com.zerogravitysolutuins.instructor_service.instructor;
+package com.zerogravitysolutions.groupservice.instructor;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutuins.instructor_service.commons.BaseEntity;
-import com.zerogravitysolutuins.instructor_service.group.Group;
-import com.zerogravitysolutuins.instructor_service.training.Training;
+import com.zerogravitysolutions.groupservice.commons.BaseDto;
+import com.zerogravitysolutions.groupservice.commons.BaseEntity;
+import com.zerogravitysolutions.groupservice.group.Group;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.util.HashSet;
@@ -24,10 +23,6 @@ public class Instructor extends BaseEntity {
     private String facebookProfile;
     private String linkedinProfile;
     private String profilePicture;
-
-    @ManyToMany(mappedBy = "instructors")
-    @JsonIgnoreProperties("instructors")
-    private Set<Training> trainings = new HashSet<>();
 
     @ManyToMany(mappedBy = "instructors")
     @JsonIgnoreProperties("instructors")
@@ -95,14 +90,6 @@ public class Instructor extends BaseEntity {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
-    }
-
-    public Set<Training> getTrainings() {
-        return trainings;
-    }
-
-    public void setTrainings(Set<Training> trainings) {
-        this.trainings = trainings;
     }
 
     public Set<Group> getGroups() {

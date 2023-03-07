@@ -1,14 +1,15 @@
 package com.zerogravitysolutions.groupservice.group;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zerogravitysolutions.groupservice.commons.BaseEntity;
+import com.zerogravitysolutions.groupservice.instructor.Instructor;
 import com.zerogravitysolutions.groupservice.training.Training;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "groups")
@@ -23,6 +24,15 @@ public class Group extends BaseEntity {
     @JoinColumn(name = "training_id")
     @JsonIgnore
     private Training training;
+
+    @ManyToMany
+    @JoinTable(
+            name = "group_instructors",
+            joinColumns = {@JoinColumn(name = "group_id")},
+            inverseJoinColumns = {@JoinColumn(name = "instructor_id")}
+    )
+    @JsonIgnoreProperties("groups")
+    private Set<Instructor> instructors = new HashSet<>();
 
     public String getTitle() {
         return title;
@@ -62,5 +72,13 @@ public class Group extends BaseEntity {
 
     public void setTraining(Training training) {
         this.training = training;
+    }
+
+    public Set<Instructor> getInstructors() {
+        return instructors;
+    }
+
+    public void setInstructors(Set<Instructor> instructors) {
+        this.instructors = instructors;
     }
 }

@@ -46,4 +46,8 @@ public class GroupController {
         return groupService.partialUpdate(id, groupDto);
     }
 
+    @PutMapping(path = "/groups/{groupId}/instructors/{instructorId}")
+    public GroupDto partialUpdate(@PathVariable Long groupId, @PathVariable Long instructorId){
+        return groupService.addInstructorInGroup(groupId, instructorId);
+    }
 }

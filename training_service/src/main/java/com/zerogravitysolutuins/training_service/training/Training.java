@@ -31,6 +31,7 @@ public class Training extends BaseEntity {
     private Set<Subject> subjects = new HashSet<>();
 
     @OneToMany(mappedBy = "training")
+    @JsonIgnoreProperties("training")
     private Set<Group> groups = new HashSet<>();
 
 

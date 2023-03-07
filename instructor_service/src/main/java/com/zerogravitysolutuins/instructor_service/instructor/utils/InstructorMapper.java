@@ -70,6 +70,7 @@ public class InstructorMapper {
         instructorDto.setLinkedinProfile(instructor.getLinkedinProfile());
         instructorDto.setProfilePicture(instructor.getProfilePicture());
         instructorDto.setTrainings(instructor.getTrainings());
+        instructorDto.setGroups(instructor.getGroups());
 
         instructorDto.setCreatedAt(instructor.getCreatedAt());
         instructorDto.setCreatedBy(instructor.getCreatedBy());

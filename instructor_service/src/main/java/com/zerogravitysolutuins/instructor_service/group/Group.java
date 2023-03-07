@@ -1,21 +1,29 @@
-package com.zerogravitysolutions.groupservice.group;
+package com.zerogravitysolutuins.instructor_service.group;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutions.groupservice.commons.BaseDto;
-import com.zerogravitysolutions.groupservice.instructor.Instructor;
+import com.zerogravitysolutuins.instructor_service.commons.BaseEntity;
+import com.zerogravitysolutuins.instructor_service.instructor.Instructor;
+import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GroupDto extends BaseDto{
+@Entity
+@Table(name = "groups")
+public class Group extends BaseEntity {
 
     private String title;
     private String description;
     private Timestamp startDate;
     private Timestamp endDate;
-    private Long trainingId;
 
+    @ManyToMany
+    @JoinTable(
+            name = "group_instructors",
+            joinColumns = {@JoinColumn(name = "group_id")},
+            inverseJoinColumns = {@JoinColumn(name = "instructor_id")}
+    )
     @JsonIgnoreProperties("groups")
     private Set<Instructor> instructors = new HashSet<>();
 
@@ -49,14 +57,6 @@ public class GroupDto extends BaseDto{
 
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
-    }
-
-    public Long getTrainingId() {
-        return trainingId;
-    }
-
-    public void setTrainingId(Long trainingId) {
-        this.trainingId = trainingId;
     }
 
     public Set<Instructor> getInstructors() {

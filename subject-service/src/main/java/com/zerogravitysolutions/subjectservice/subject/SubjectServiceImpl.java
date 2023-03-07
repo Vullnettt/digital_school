@@ -2,7 +2,6 @@ package com.zerogravitysolutions.subjectservice.subject;
 
 import com.zerogravitysolutions.subjectservice.subject.utils.SubjectMapper;
 import com.zerogravitysolutions.subjectservice.training.Training;
-import com.zerogravitysolutions.subjectservice.training.TrainingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,14 +16,12 @@ import java.util.Optional;
 public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectRepository subjectRepository;
-    private final TrainingRepository trainingRepository;
     private final RestTemplate restTemplate;
 
     @Autowired
     public SubjectServiceImpl(SubjectRepository subjectRepository,
-                              TrainingRepository trainingRepository, RestTemplate restTemplate) {
+                              RestTemplate restTemplate) {
         this.subjectRepository = subjectRepository;
-        this.trainingRepository = trainingRepository;
         this.restTemplate = restTemplate;
     }
 
@@ -32,13 +29,12 @@ public class SubjectServiceImpl implements SubjectService {
     public SubjectDto save(SubjectDto subjectDto) {
          Subject subject = new Subject();
          Training training = restTemplate.getForObject("http://localhost:8081/trainings/" + subjectDto.getTrainingId()  , Training.class);
+         SubjectMapper.mapDtoToEntity(subjectDto, subject);
+         subject.setTraining(training);
+         subject.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+         subject.setCreatedBy(1L);
 
-        SubjectMapper.mapDtoToEntity(subjectDto, subject);
-        subject.setTraining(training);
-        subject.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        subject.setCreatedBy(1L);
-
-        trainingRepository.save(training);
+//        trainingRepository.save(training);
     return SubjectMapper.mapEntityToDto(subjectRepository.save(subject));
 }
     @Override

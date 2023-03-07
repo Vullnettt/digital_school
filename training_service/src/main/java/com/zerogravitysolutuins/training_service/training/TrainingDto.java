@@ -5,7 +5,6 @@ import com.zerogravitysolutuins.training_service.commons.BaseDto;
 import com.zerogravitysolutuins.training_service.group.Group;
 import com.zerogravitysolutuins.training_service.instructor.Instructor;
 import com.zerogravitysolutuins.training_service.subject.Subject;
-import com.zerogravitysolutuins.training_service.subject.SubjectRepository;
 
 import java.util.HashSet;
 import java.util.Set;
