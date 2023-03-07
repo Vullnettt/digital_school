@@ -1,11 +1,11 @@
-package com.zerogravitysolutions.groupservice.group;
+package com.zerogravitysolutuins.training_service.template.group;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutions.groupservice.commons.BaseEntity;
-import com.zerogravitysolutions.groupservice.template.instructor.Instructor;
-import com.zerogravitysolutions.groupservice.template.student.Student;
-import com.zerogravitysolutions.groupservice.template.training.Training;
+import com.zerogravitysolutuins.training_service.commons.BaseEntity;
+import com.zerogravitysolutuins.training_service.template.instructor.Instructor;
+import com.zerogravitysolutuins.training_service.template.student.Student;
+import com.zerogravitysolutuins.training_service.training.Training;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -77,21 +77,5 @@ public class Group extends BaseEntity {
 
     public void setTraining(Training training) {
         this.training = training;
-    }
-
-    public Set<Instructor> getInstructors() {
-        return instructors;
-    }
-
-    public void setInstructors(Set<Instructor> instructors) {
-        this.instructors = instructors;
-    }
-
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
     }
 }

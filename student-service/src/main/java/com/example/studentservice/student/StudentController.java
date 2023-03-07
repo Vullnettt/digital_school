@@ -45,4 +45,9 @@ public class StudentController {
     public StudentDto partialUpdate(@PathVariable Long id, @RequestBody StudentDto studentDto){
         return studentService.partialUpdate(id, studentDto);
     }
+
+    @PutMapping(path = "/students/{studentId}/groups/{groupId}")
+    public StudentDto addStudentInGroup(@PathVariable Long studentId, @PathVariable Long groupId){
+        return studentService.addStudentToGroup(studentId, groupId);
+    }
 }

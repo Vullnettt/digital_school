@@ -1,6 +1,11 @@
 package com.example.studentservice.student;
 
 import com.example.studentservice.commons.BaseDto;
+import com.example.studentservice.template.group.Group;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class StudentDto extends BaseDto {
 
@@ -10,6 +15,9 @@ public class StudentDto extends BaseDto {
     private String phoneNumber;
     private String personalNumber;
     private String profilePicture;
+
+    @JsonIgnoreProperties("students")
+    private Set<Group> groups = new HashSet<>();
 
     public String getFirstName() {
         return firstName;
@@ -57,5 +65,13 @@ public class StudentDto extends BaseDto {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 }

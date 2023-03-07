@@ -1,8 +1,8 @@
-package com.zerogravitysolutuins.instructor_service.subject;
+package com.zerogravitysolutions.groupservice.template.subject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.zerogravitysolutuins.instructor_service.commons.BaseEntity;
-import com.zerogravitysolutuins.instructor_service.training.Training;
+import com.zerogravitysolutions.groupservice.commons.BaseEntity;
+import com.zerogravitysolutions.groupservice.template.training.Training;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,6 +19,7 @@ public class Subject extends BaseEntity {
     @JoinColumn(name = "training_id")
     @JsonIgnore
     private Training training;
+
 
     public String getTitle() {
         return title;

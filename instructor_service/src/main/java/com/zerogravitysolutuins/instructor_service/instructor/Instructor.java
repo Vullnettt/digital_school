@@ -2,11 +2,10 @@ package com.zerogravitysolutuins.instructor_service.instructor;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zerogravitysolutuins.instructor_service.commons.BaseEntity;
-import com.zerogravitysolutuins.instructor_service.group.Group;
-import com.zerogravitysolutuins.instructor_service.training.Training;
+import com.zerogravitysolutuins.instructor_service.template.group.Group;
+import com.zerogravitysolutuins.instructor_service.template.training.Training;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.util.HashSet;

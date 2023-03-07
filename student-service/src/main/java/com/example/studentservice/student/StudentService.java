@@ -10,4 +10,5 @@ public interface StudentService {
     StudentDto update(StudentDto studentDto);
     StudentDto disable(Long id);
     StudentDto partialUpdate(Long id, StudentDto studentDto);
+    StudentDto addStudentToGroup(Long studentId, Long groupId);
 }

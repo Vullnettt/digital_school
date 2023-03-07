@@ -1,8 +1,9 @@
-package com.zerogravitysolutuins.training_service.instructor;
+package com.zerogravitysolutions.groupservice.template.instructor;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutuins.training_service.commons.BaseEntity;
-import com.zerogravitysolutuins.training_service.training.Training;
+import com.zerogravitysolutions.groupservice.commons.BaseEntity;
+import com.zerogravitysolutions.groupservice.group.Group;
+import com.zerogravitysolutions.groupservice.template.training.Training;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
@@ -26,6 +27,10 @@ public class Instructor extends BaseEntity {
     @ManyToMany(mappedBy = "instructors")
     @JsonIgnoreProperties("instructors")
     private Set<Training> trainings = new HashSet<>();
+
+    @ManyToMany(mappedBy = "instructors")
+    @JsonIgnoreProperties("instructors")
+    private Set<Group> groups = new HashSet<>();
 
     public String getFirstName() {
         return firstName;
@@ -91,13 +96,4 @@ public class Instructor extends BaseEntity {
         this.profilePicture = profilePicture;
     }
 
-    public Set<Training> getTrainings() {
-        return trainings;
-    }
-
-    public void setTrainings(Set<Training> trainings) {
-        this.trainings = trainings;
-    }
 }
-
-

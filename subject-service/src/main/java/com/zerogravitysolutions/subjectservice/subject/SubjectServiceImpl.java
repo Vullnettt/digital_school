@@ -1,7 +1,7 @@
 package com.zerogravitysolutions.subjectservice.subject;
 
 import com.zerogravitysolutions.subjectservice.subject.utils.SubjectMapper;
-import com.zerogravitysolutions.subjectservice.training.Training;
+import com.zerogravitysolutions.subjectservice.template.training.Training;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

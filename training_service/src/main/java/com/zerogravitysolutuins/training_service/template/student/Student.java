@@ -1,31 +1,31 @@
-package com.zerogravitysolutions.groupservice.instructor;
+package com.zerogravitysolutuins.training_service.template.student;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutions.groupservice.commons.BaseDto;
-import com.zerogravitysolutions.groupservice.commons.BaseEntity;
-import com.zerogravitysolutions.groupservice.group.Group;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import com.zerogravitysolutuins.training_service.commons.BaseEntity;
+import com.zerogravitysolutuins.training_service.template.group.Group;
+import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "instructors")
-public class Instructor extends BaseEntity {
+@Table(name = "students")
+public class Student extends BaseEntity {
 
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String bio;
-    private String facebookProfile;
-    private String linkedinProfile;
+    private String personalNumber;
     private String profilePicture;
 
-    @ManyToMany(mappedBy = "instructors")
-    @JsonIgnoreProperties("instructors")
+    @ManyToMany
+    @JoinTable(
+            name = "student_groups",
+            joinColumns = {@JoinColumn(name = "student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")}
+    )
+    @JsonIgnoreProperties("students")
     private Set<Group> groups = new HashSet<>();
 
     public String getFirstName() {
@@ -60,28 +60,12 @@ public class Instructor extends BaseEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getBio() {
-        return bio;
+    public String getPersonalNumber() {
+        return personalNumber;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getFacebookProfile() {
-        return facebookProfile;
-    }
-
-    public void setFacebookProfile(String facebookProfile) {
-        this.facebookProfile = facebookProfile;
-    }
-
-    public String getLinkedinProfile() {
-        return linkedinProfile;
-    }
-
-    public void setLinkedinProfile(String linkedinProfile) {
-        this.linkedinProfile = linkedinProfile;
+    public void setPersonalNumber(String personalNumber) {
+        this.personalNumber = personalNumber;
     }
 
     public String getProfilePicture() {

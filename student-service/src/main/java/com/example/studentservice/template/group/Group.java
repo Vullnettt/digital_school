@@ -1,11 +1,11 @@
-package com.zerogravitysolutions.groupservice.group;
+package com.example.studentservice.template.group;
 
+import com.example.studentservice.commons.BaseEntity;
+import com.example.studentservice.template.instructor.Instructor;
+import com.example.studentservice.template.training.Training;
+import com.example.studentservice.student.Student;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutions.groupservice.commons.BaseEntity;
-import com.zerogravitysolutions.groupservice.template.instructor.Instructor;
-import com.zerogravitysolutions.groupservice.template.student.Student;
-import com.zerogravitysolutions.groupservice.template.training.Training;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -34,6 +34,7 @@ public class Group extends BaseEntity {
     )
     @JsonIgnoreProperties("groups")
     private Set<Instructor> instructors = new HashSet<>();
+
 
     @ManyToMany(mappedBy = "groups")
     @JsonIgnoreProperties("groups")

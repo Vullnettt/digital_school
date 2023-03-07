@@ -1,8 +1,8 @@
-package com.zerogravitysolutuins.training_service.subject;
+package com.zerogravitysolutuins.instructor_service.template.subject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.zerogravitysolutuins.training_service.commons.BaseEntity;
-import com.zerogravitysolutuins.training_service.training.Training;
+import com.zerogravitysolutuins.instructor_service.commons.BaseEntity;
+import com.zerogravitysolutuins.instructor_service.template.training.Training;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

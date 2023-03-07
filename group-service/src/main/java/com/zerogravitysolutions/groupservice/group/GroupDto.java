@@ -2,7 +2,8 @@ package com.zerogravitysolutions.groupservice.group;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zerogravitysolutions.groupservice.commons.BaseDto;
-import com.zerogravitysolutions.groupservice.instructor.Instructor;
+import com.zerogravitysolutions.groupservice.template.instructor.Instructor;
+import com.zerogravitysolutions.groupservice.template.student.Student;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -18,6 +19,9 @@ public class GroupDto extends BaseDto{
 
     @JsonIgnoreProperties("groups")
     private Set<Instructor> instructors = new HashSet<>();
+
+    @JsonIgnoreProperties("groups")
+    private Set<Student> students = new HashSet<>();
 
     public String getTitle() {
         return title;
@@ -65,5 +69,13 @@ public class GroupDto extends BaseDto{
 
     public void setInstructors(Set<Instructor> instructors) {
         this.instructors = instructors;
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 }

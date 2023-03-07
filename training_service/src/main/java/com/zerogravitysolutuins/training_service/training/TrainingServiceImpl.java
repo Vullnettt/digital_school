@@ -1,6 +1,6 @@
 package com.zerogravitysolutuins.training_service.training;
 
-import com.zerogravitysolutuins.training_service.instructor.Instructor;
+import com.zerogravitysolutuins.training_service.template.instructor.Instructor;
 import com.zerogravitysolutuins.training_service.training.utils.TrainingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

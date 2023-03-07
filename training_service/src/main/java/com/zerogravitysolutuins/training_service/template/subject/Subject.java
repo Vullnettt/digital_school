@@ -1,4 +1,4 @@
-package com.zerogravitysolutuins.training_service.group;
+package com.zerogravitysolutuins.training_service.template.subject;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zerogravitysolutuins.training_service.commons.BaseEntity;
@@ -8,16 +8,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-import java.sql.Timestamp;
-
 @Entity
-@Table(name = "groups")
-public class Group extends BaseEntity {
+@Table(name = "subjects")
+public class Subject extends BaseEntity {
 
     private String title;
     private String description;
-    private Timestamp startDate;
-    private Timestamp endDate;
 
     @ManyToOne
     @JoinColumn(name = "training_id")
@@ -38,22 +34,6 @@ public class Group extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Timestamp getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Timestamp startDate) {
-        this.startDate = startDate;
-    }
-
-    public Timestamp getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Timestamp endDate) {
-        this.endDate = endDate;
     }
 
     public Training getTraining() {

@@ -1,9 +1,11 @@
 package com.example.studentservice.student;
 
+import com.example.studentservice.template.group.Group;
 import com.example.studentservice.student.utils.StudentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
@@ -14,10 +16,11 @@ import java.util.Optional;
 public class StudentServiceImpl implements StudentService{
 
     private final StudentRepository studentRepository;
-
+    private final RestTemplate restTemplate;
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository, RestTemplate restTemplate) {
         this.studentRepository = studentRepository;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -72,6 +75,19 @@ public class StudentServiceImpl implements StudentService{
             StudentMapper.mapDtoToEntity(studentDto, student.get());
             student.get().setUpdatedAt(new Timestamp(System.currentTimeMillis()));
             student.get().setUpdatedBy(1L);
+            return StudentMapper.mapEntityToDto(studentRepository.save(student.get()));
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student with id: " + student.get().getId() + " not found.");
+        }
+    }
+
+    @Override
+    public StudentDto addStudentToGroup(Long studentId, Long groupId) {
+        Optional<Student> student = studentRepository.findStudentById(studentId);
+        if(student.isPresent()) {
+            Group group = restTemplate.getForObject("http://localhost:8085/groups/" + groupId, Group.class);
+            student.get().getGroups().add(group);
             return StudentMapper.mapEntityToDto(studentRepository.save(student.get()));
         }
         else {

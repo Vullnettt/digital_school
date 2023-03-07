@@ -2,9 +2,9 @@ package com.zerogravitysolutuins.training_service.training;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zerogravitysolutuins.training_service.commons.BaseDto;
-import com.zerogravitysolutuins.training_service.group.Group;
-import com.zerogravitysolutuins.training_service.instructor.Instructor;
-import com.zerogravitysolutuins.training_service.subject.Subject;
+import com.zerogravitysolutuins.training_service.template.group.Group;
+import com.zerogravitysolutuins.training_service.template.instructor.Instructor;
+import com.zerogravitysolutuins.training_service.template.subject.Subject;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +20,7 @@ public class TrainingDto extends BaseDto {
 
     private Set<Subject> subjects = new HashSet<>();
 
+    @JsonIgnoreProperties("training")
     private Set<Group> groups = new HashSet<>();
 
     public String getTitle() {

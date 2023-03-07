@@ -1,8 +1,12 @@
 package com.example.studentservice.student;
 
 import com.example.studentservice.commons.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.example.studentservice.template.group.Group;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "students")
@@ -14,6 +18,16 @@ public class Student extends BaseEntity {
     private String phoneNumber;
     private String personalNumber;
     private String profilePicture;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_groups",
+            joinColumns = {@JoinColumn(name = "student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")}
+    )
+    @JsonIgnoreProperties("students")
+    private Set<Group> groups = new HashSet<>();
+
 
     public String getFirstName() {
         return firstName;
@@ -61,5 +75,13 @@ public class Student extends BaseEntity {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 }

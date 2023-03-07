@@ -1,6 +1,9 @@
-package com.zerogravitysolutions.subjectservice.training;
+package com.zerogravitysolutions.subjectservice.template.training;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zerogravitysolutions.subjectservice.commons.BaseEntity;
+import com.zerogravitysolutions.subjectservice.template.group.Group;
+import com.zerogravitysolutions.subjectservice.template.instructor.Instructor;
 import com.zerogravitysolutions.subjectservice.subject.Subject;
 import jakarta.persistence.*;
 
@@ -16,8 +19,21 @@ public class Training extends BaseEntity {
     private String description;
     private Double price;
 
+    @ManyToMany
+    @JoinTable(
+            name = "training_instructors",
+            joinColumns = {@JoinColumn(name = "training_id")},
+            inverseJoinColumns = {@JoinColumn(name = "instructor_id")}
+    )
+    @JsonIgnoreProperties("trainings")
+    private Set<Instructor> instructors = new HashSet<>();
+
     @OneToMany(mappedBy = "training")
     private Set<Subject> subjects = new HashSet<>();
+
+    @OneToMany(mappedBy = "training")
+    @JsonIgnoreProperties("training")
+    private Set<Group> groups = new HashSet<>();
 
 
     public String getTitle() {

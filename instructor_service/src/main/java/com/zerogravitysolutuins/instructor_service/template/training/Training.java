@@ -1,9 +1,10 @@
-package com.zerogravitysolutuins.instructor_service.training;
+package com.zerogravitysolutuins.instructor_service.template.training;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zerogravitysolutuins.instructor_service.commons.BaseEntity;
+import com.zerogravitysolutuins.instructor_service.template.group.Group;
 import com.zerogravitysolutuins.instructor_service.instructor.Instructor;
-import com.zerogravitysolutuins.instructor_service.subject.Subject;
+import com.zerogravitysolutuins.instructor_service.template.subject.Subject;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -28,6 +29,10 @@ public class Training extends BaseEntity {
 
     @OneToMany(mappedBy = "training")
     private Set<Subject> subjects = new HashSet<>();
+
+    @OneToMany(mappedBy = "training")
+    @JsonIgnoreProperties("training")
+    private Set<Group> groups = new HashSet<>();
 
     public String getTitle() {
         return title;
@@ -67,5 +72,13 @@ public class Training extends BaseEntity {
 
     public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 }

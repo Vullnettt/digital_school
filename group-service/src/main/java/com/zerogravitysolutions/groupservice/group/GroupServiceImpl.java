@@ -1,8 +1,8 @@
 package com.zerogravitysolutions.groupservice.group;
 
 import com.zerogravitysolutions.groupservice.group.utils.GroupMapper;
-import com.zerogravitysolutions.groupservice.instructor.Instructor;
-import com.zerogravitysolutions.groupservice.training.Training;
+import com.zerogravitysolutions.groupservice.template.instructor.Instructor;
+import com.zerogravitysolutions.groupservice.template.training.Training;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

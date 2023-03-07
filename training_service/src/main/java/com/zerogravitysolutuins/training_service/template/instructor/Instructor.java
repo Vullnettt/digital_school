@@ -1,14 +1,19 @@
-package com.zerogravitysolutuins.instructor_service.instructor;
+package com.zerogravitysolutuins.training_service.template.instructor;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutuins.instructor_service.commons.BaseDto;
-import com.zerogravitysolutuins.instructor_service.template.group.Group;
-import com.zerogravitysolutuins.instructor_service.template.training.Training;
+import com.zerogravitysolutuins.training_service.commons.BaseEntity;
+import com.zerogravitysolutuins.training_service.template.group.Group;
+import com.zerogravitysolutuins.training_service.training.Training;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class InstructorDto extends BaseDto {
+@Entity
+@Table(name = "instructors")
+public class Instructor extends BaseEntity {
 
     private String firstName;
     private String lastName;
@@ -19,11 +24,14 @@ public class InstructorDto extends BaseDto {
     private String linkedinProfile;
     private String profilePicture;
 
+    @ManyToMany(mappedBy = "instructors")
     @JsonIgnoreProperties("instructors")
     private Set<Training> trainings = new HashSet<>();
 
+    @ManyToMany(mappedBy = "instructors")
     @JsonIgnoreProperties("instructors")
     private Set<Group> groups = new HashSet<>();
+
     public String getFirstName() {
         return firstName;
     }
@@ -87,20 +95,6 @@ public class InstructorDto extends BaseDto {
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
-
-    public Set<Training> getTrainings() {
-        return trainings;
-    }
-
-    public void setTrainings(Set<Training> trainings) {
-        this.trainings = trainings;
-    }
-
-    public Set<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
-    }
 }
+
+

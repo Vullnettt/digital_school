@@ -58,6 +58,7 @@ public class StudentMapper {
         studentDto.setPhoneNumber(student.getPhoneNumber());
         studentDto.setPersonalNumber(student.getPersonalNumber());
         studentDto.setProfilePicture(student.getProfilePicture());
+        studentDto.setGroups(student.getGroups());
 
         studentDto.setCreatedAt(student.getCreatedAt());
         studentDto.setCreatedBy(student.getCreatedBy());

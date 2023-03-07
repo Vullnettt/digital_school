@@ -1,11 +1,11 @@
-package com.zerogravitysolutions.groupservice.group;
+package com.zerogravitysolutions.subjectservice.template.group;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutions.groupservice.commons.BaseEntity;
-import com.zerogravitysolutions.groupservice.template.instructor.Instructor;
-import com.zerogravitysolutions.groupservice.template.student.Student;
-import com.zerogravitysolutions.groupservice.template.training.Training;
+import com.zerogravitysolutions.subjectservice.commons.BaseEntity;
+import com.zerogravitysolutions.subjectservice.template.instructor.Instructor;
+import com.zerogravitysolutions.subjectservice.template.student.Student;
+import com.zerogravitysolutions.subjectservice.template.training.Training;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;

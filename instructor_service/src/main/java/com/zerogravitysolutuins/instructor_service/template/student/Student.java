@@ -1,29 +1,34 @@
-package com.zerogravitysolutuins.instructor_service.instructor;
+package com.zerogravitysolutuins.instructor_service.template.student;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zerogravitysolutuins.instructor_service.commons.BaseDto;
+import com.zerogravitysolutuins.instructor_service.commons.BaseEntity;
 import com.zerogravitysolutuins.instructor_service.template.group.Group;
-import com.zerogravitysolutuins.instructor_service.template.training.Training;
+import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class InstructorDto extends BaseDto {
+@Entity
+@Table(name = "students")
+public class Student extends BaseEntity {
 
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String bio;
-    private String facebookProfile;
-    private String linkedinProfile;
+    private String personalNumber;
     private String profilePicture;
 
-    @JsonIgnoreProperties("instructors")
-    private Set<Training> trainings = new HashSet<>();
-
-    @JsonIgnoreProperties("instructors")
+    @ManyToMany
+    @JoinTable(
+            name = "student_groups",
+            joinColumns = {@JoinColumn(name = "student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "group_id")}
+    )
+    @JsonIgnoreProperties("students")
     private Set<Group> groups = new HashSet<>();
+
+
     public String getFirstName() {
         return firstName;
     }
@@ -56,28 +61,12 @@ public class InstructorDto extends BaseDto {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getBio() {
-        return bio;
+    public String getPersonalNumber() {
+        return personalNumber;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getFacebookProfile() {
-        return facebookProfile;
-    }
-
-    public void setFacebookProfile(String facebookProfile) {
-        this.facebookProfile = facebookProfile;
-    }
-
-    public String getLinkedinProfile() {
-        return linkedinProfile;
-    }
-
-    public void setLinkedinProfile(String linkedinProfile) {
-        this.linkedinProfile = linkedinProfile;
+    public void setPersonalNumber(String personalNumber) {
+        this.personalNumber = personalNumber;
     }
 
     public String getProfilePicture() {
@@ -86,14 +75,6 @@ public class InstructorDto extends BaseDto {
 
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
-    }
-
-    public Set<Training> getTrainings() {
-        return trainings;
-    }
-
-    public void setTrainings(Set<Training> trainings) {
-        this.trainings = trainings;
     }
 
     public Set<Group> getGroups() {
