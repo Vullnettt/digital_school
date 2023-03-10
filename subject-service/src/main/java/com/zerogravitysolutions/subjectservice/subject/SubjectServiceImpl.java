@@ -28,7 +28,7 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public SubjectDto save(SubjectDto subjectDto) {
          Subject subject = new Subject();
-         Training training = restTemplate.getForObject("http://localhost:8081/trainings/" + subjectDto.getTrainingId()  , Training.class);
+         Training training = restTemplate.getForObject("http://training-service:8081/trainings/" + subjectDto.getTrainingId()  , Training.class);
          SubjectMapper.mapDtoToEntity(subjectDto, subject);
          subject.setTraining(training);
          subject.setCreatedAt(new Timestamp(System.currentTimeMillis()));

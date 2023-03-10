@@ -28,7 +28,7 @@ public class GroupServiceImpl implements GroupService{
     @Override
     public GroupDto save(GroupDto groupDto) {
         Group group = new Group();
-        Training training = restTemplate.getForObject("http://localhost:8081/trainings/" + groupDto.getTrainingId(), Training.class);
+        Training training = restTemplate.getForObject("http://training-service:8081/trainings/" + groupDto.getTrainingId(), Training.class);
         GroupMapper.mapDtoToEntity(groupDto, group);
         group.setTraining(training);
         group.setCreatedAt(new Timestamp(System.currentTimeMillis()));
@@ -87,7 +87,7 @@ public class GroupServiceImpl implements GroupService{
     public GroupDto addInstructorInGroup(Long groupId, Long instructorId) {
         Optional<Group> group = groupRepository.findGroupById(groupId);
         if(group.isPresent()) {
-            Instructor instructor = restTemplate.getForObject("http://localhost:8082/instructors/" + instructorId, Instructor.class);
+            Instructor instructor = restTemplate.getForObject("http://instructor-service:8082/instructors/" + instructorId, Instructor.class);
             group.get().getInstructors().add(instructor);
             return GroupMapper.mapEntityToDto(groupRepository.save(group.get()));
         }else {

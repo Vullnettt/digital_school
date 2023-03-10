@@ -86,7 +86,7 @@ public class StudentServiceImpl implements StudentService{
     public StudentDto addStudentToGroup(Long studentId, Long groupId) {
         Optional<Student> student = studentRepository.findStudentById(studentId);
         if(student.isPresent()) {
-            Group group = restTemplate.getForObject("http://localhost:8085/groups/" + groupId, Group.class);
+            Group group = restTemplate.getForObject("http://group-service:8085/groups/" + groupId, Group.class);
             student.get().getGroups().add(group);
             return StudentMapper.mapEntityToDto(studentRepository.save(student.get()));
         }
